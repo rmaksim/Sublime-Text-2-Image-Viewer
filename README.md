@@ -30,7 +30,7 @@ Pressing the `super+i` opens the image viewer installed on your system by defaul
 
 ### [image_viewer.sublime-settings](https://github.com/rmaksim/Sublime-Text-2-Image-Viewer/blob/master/image_viewer.sublime-settings)
     {
-        "css_files": [".css", ".sass", ".less"]
+        "image_types": [".jpg", ".png", ".gif"]
     }
 
 
