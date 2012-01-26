@@ -1,5 +1,5 @@
 '''
-Image-Viewer v0.1.0
+Image-Viewer v0.1.1
 
 [
     {"keys": ["super+i"],  "command": "image_viewer"}
@@ -44,27 +44,25 @@ class ImageViewerCommand(sublime_plugin.TextCommand):
             self.view_image(file_name)
 
         else:
-            cur_pos   = view.sel()[0].a
-            scope_reg = view.extract_scope(cur_pos)
+            for reg in self.view.sel():
 
-            file_string = view.substr(scope_reg)
-            with_quotes = re.match('^[\"\']{1}(.*)[\"\']{1}$', file_string)
-            file_string = with_quotes.group(1) if with_quotes else file_string
+                scope_reg = view.extract_scope(reg.a) if reg.a == reg.b else reg
+                file_string = view.substr(scope_reg)
+                with_quotes = re.match('^[\"\']{1}(.*)[\"\']{1}$', file_string)
+                file_string = with_quotes.group(1) if with_quotes else file_string
 
-            if is_image(file_string):
-                dir_name  = re.match('(.*)(\/.*)$', view.file_name())
-                dir_name  = dir_name.group(1) + "/" if dir_name else ""
-                full_name = dir_name + file_string
-                self.view_image(dir_name, file_string)
+                if is_image(file_string):
+                    dir_name = os.path.dirname(view.file_name())
+                    self.view_image(dir_name, file_string)
 
-            else:
-                sublime.error_message("Image-Viewer\n\nERROR: Image type is not recognized:\n\n" + file_string)
+                else:
+                    sublime.error_message("Image-Viewer\n\nERROR: Image type is not recognized:\n\n" + file_string)
 
 
     def view_image(self, dir_name, file_name = ""):
         '''View image with default OS viewer'''
 
-        full_name = dir_name + file_name
+        full_name = dir_name + "/" + file_name
 
         if (os.path.isfile(full_name)):
             desktop.open(full_name)
