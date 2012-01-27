@@ -1,6 +1,6 @@
 # Image-Viewer
 
-**v0.1.1**
+**v0.1.2**
 
 ---
 ## View image from CSS declaration, HTML <img> tag, and may be from something else :)

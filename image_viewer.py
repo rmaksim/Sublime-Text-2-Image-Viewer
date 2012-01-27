@@ -1,5 +1,5 @@
 '''
-Image-Viewer v0.1.1
+Image-Viewer v0.1.2
 
 [
     {"keys": ["super+i"],  "command": "image_viewer"}
@@ -62,7 +62,7 @@ class ImageViewerCommand(sublime_plugin.TextCommand):
     def view_image(self, dir_name, file_name = ""):
         '''View image with default OS viewer'''
 
-        full_name = dir_name + "/" + file_name
+        full_name = dir_name + "/" + file_name if file_name else dir_name
 
         if (os.path.isfile(full_name)):
             desktop.open(full_name)
